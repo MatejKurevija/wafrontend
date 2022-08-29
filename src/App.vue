@@ -22,47 +22,63 @@
             <a class="nav-link" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Store">Store</a>
+            <a class="nav-link" href="Store" v-if="auth.authenticated">Store</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Support">Support</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Contact">Contact</a>
+            <a class="nav-link" href="ShopingCart" v-if="auth.authenticated"
+              >Shoping Cart</a
+            >
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Login" v-if="!auth.authenticated"
+              >Log in/Sign up</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Login">Login</a>
+            <a
+              class="nav-link"
+              href="Login"
+              v-if="auth.authenticated"
+              @click="logout()"
+              >Logout</a
+            >
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <router-view />
-  <div
-    class="cart"
-    style="z-index: 15; position: fixed; right: 0; top: 0; height: 83px"
-  >
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="ShopingCart">
-          <img
-            src="https://www.freeiconspng.com/uploads/shopping-cart-icon-26.jpg"
-            width="50"
-            height="50"
-            class="d-inline-block align-top"
-            alt=""
-          />
-        </a>
-      </li>
-    </ul>
-  </div>
 </template>
+
+<script>
+import { Auth } from "/service";
+export default {
+  data() {
+    return {
+      auth: Auth.state,
+    };
+  },
+  name: "App.vue",
+  components: {},
+  methods: {
+    logout() {
+      Auth.logout();
+      this.$router.go("Login");
+    },
+  },
+};
+</script>
 
 <style>
 img {
   float: right;
   margin-right: 25px;
-  margin-top: 80px;
+  margin-top: -300px;
 }
 
 p {
