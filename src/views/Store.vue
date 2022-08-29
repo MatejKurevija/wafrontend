@@ -67,22 +67,11 @@ export default {
       this.shopingcart = await ShopingCart.getAll(term);
     },
     async AddToShopingCart(odabraniProizvod) {
-      console.log(this.proizvodi);
-      const proizvodiKojiSuVecUKosarici = this.ShopingCart.find(
-        (shopingcart) => proizvodi.id === ShopingCart.id
-      );
-      if (!!shopingcart) return;
-      const proizvodZaDodavanje = this.proizvodi.find(
+            const proizvodZaDodavanje = this.proizvodi.find(
         (proizvodi) => this.proizvodi === proizvodi.id
       );
-      this.Cart = {
-        Auth: this.auth,
-        Proizvod: pro.Proizvod,
-        ProizvodModel: pro.ProizvodModel,
-        Cijena: pro.Cijena,
-        Opis: pro.Opis,
-        NajboljaUporaba: pro.NajboljaUporaba,
-      };
+      console.log(proizvodi.id);
+      this.Cart = {};
       let newlist = await ShopingCart.add(this.Cart);
       console.log("Spremljen u Shoping Cart", newlist.data);
       this.feedback = "Added to Shoping cart";
