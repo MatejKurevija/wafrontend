@@ -163,14 +163,3 @@ export { Proizvodi, Auth, ShopingCart }
 
 
 
-
-
-/* username,
-        password,
-        firstname,
-        country,
-        city,
-        state,
-        about,
-        adress,
-        lastname */
