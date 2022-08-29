@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import ShopingCart from '../views/ShopingCart.vue'
+import support from '../views/support.vue'
+import Registracija from '../views/Registracija.vue'
+import payment from '../views/payment.vue'
 
 const routes = [
   {
@@ -18,6 +21,21 @@ const routes = [
     path: '/ShopingCart',
     name: 'ShopingCart',
     component: ShopingCart
+  },
+  {
+    path: '/Registracija',
+    name: 'Registracija',
+    component: Registracija
+  },
+  {
+    path: '/support',
+    name: 'support',
+    component: support
+  },
+  {
+    path: '/payment',
+    name: 'payment',
+    component: payment
   },
   {
     path: '/Store',
