@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-75">
       <div class="container">
-        <form action="/action_page.php">
+        <form>
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
@@ -96,7 +96,7 @@
             <input type="checkbox" checked="checked" name="sameadr" /> Shipping
             address same as billing
           </label>
-          <input type="submit" value="Continue to checkout" class="btn" />
+          <input value="Continue to checkout" class="btn" href="/" />
         </form>
       </div>
     </div>
@@ -107,45 +107,68 @@
           Cart
           <span class="price" style="color: black">
             <i class="fa fa-shopping-cart"></i>
-            <b>4</b>
           </span>
         </h4>
-        <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-        <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-        <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-        <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+        <div v-for="shopingcart in shopingcart" :key="shopingcart.id">
+          <p v-if="shopingcart.Auth == this.auth">
+            {{ shopingcart.Proizvod }}
+            <span class="price">{{ shopingcart.Cijena }}$</span>
+          </p>
+        </div>
         <hr />
-        <p>
-          Total <span class="price" style="color: black"><b>$30</b></span>
-        </p>
       </div>
     </div>
   </div>
 </template>
 
 
+<script>
+import { ShopingCart, Auth } from "/service";
+
+export default {
+  data() {
+    return {
+      shopingcart: {},
+      auth: Auth.getUser().username,
+    };
+  },
+
+  created() {
+    this.pozovibackendshopingcart();
+  },
+
+  methods: {
+    async pozovibackendshopingcart(term) {
+      this.shopingcart = await ShopingCart.getAll(term);
+    },
+  },
+};
+</script>
+
+
+
 
 <style scoped>
 .row {
-  display: -ms-flexbox; /* IE10 */
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 0 -16px;
 }
 
 .col-25 {
-  -ms-flex: 25%; /* IE10 */
+  -ms-flex: 25%;
   flex: 25%;
 }
 
 .col-50 {
-  -ms-flex: 50%; /* IE10 */
+  -ms-flex: 50%;
   flex: 50%;
 }
 
 .col-75 {
-  -ms-flex: 75%; /* IE10 */
+  -ms-flex: 75%;
   flex: 75%;
 }
 
@@ -202,7 +225,6 @@ span.price {
   color: grey;
 }
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
 @media (max-width: 800px) {
   .row {
     flex-direction: column-reverse;
