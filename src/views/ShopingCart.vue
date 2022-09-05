@@ -18,38 +18,38 @@
                           <th scope="col">Item</th>
                           <th scope="col">Model</th>
                           <th scope="col">Price</th>
-                          <th scope="col">Description</th>
+
                           <th scope="col">Best use</th>
+                          <th scope="col"></th>
                         </tr>
                       </thead>
                       <tbody
                         v-for="shopingcart in shopingcart"
-                        v-bind:key="shopingcart.id"
+                        v-bind:key="shopingcart.Auth"
                       >
-                        <tr>
+                        <tr v-if="shopingcart.Auth == this.auth">
                           <td>{{ shopingcart.Proizvod }}</td>
                           <td>{{ shopingcart.ProizvodModel }}</td>
-                          <td>{{ shopingcart.Cijena }}</td>
-                          <td>{{ shopingcart.Opis }}</td>
+                          <td>{{ shopingcart.Cijena }}$</td>
+
                           <td>{{ shopingcart.NajboljaUporaba }}</td>
+                          <td>
+                            <button
+                              class="btn btn-primary btn-lg active"
+                              @click="deleteItems(shopingcart.id)"
+                            >
+                              Delete
+                            </button>
+                          </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-              <div class="netko" align="right">
+              <div align="right">
                 <a
-                  href="Store"
-                  class="btn btn-primary btn-lg active"
-                  role="button"
-                  aria-pressed="true"
-                  @click="deleteItems(auth)"
-                  >Delete items</a
-                >
-
-                <a
-                  href="Payment"
+                  href="payment"
                   class="btn btn-primary btn-lg active"
                   role="button"
                   aria-pressed="true"
@@ -82,6 +82,10 @@ export default {
   methods: {
     async pozovibackendshopingcart(term) {
       this.shopingcart = await ShopingCart.getAll(term);
+    },
+    async deleteItems(id) {
+      await ShopingCart.deleteitems(id);
+      this.pozovibackendshopingcart();
     },
   },
 };
