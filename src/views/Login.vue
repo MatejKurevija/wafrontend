@@ -83,7 +83,7 @@ export default {
           this.$router.replace({ name: "Store" });
           setTimeout(() => {
             document.location.reload();
-          }, 500);
+          }, 50);
         } else {
           alert("Pogrešni podaci uneseni.");
         }
