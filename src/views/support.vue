@@ -1,77 +1,101 @@
 <template>
-  <div class="container">
-    <form action="action_page.php">
-      <label for="fname">First Name</label>
-      <input
-        type="text"
-        id="fname"
-        name="firstname"
-        placeholder="Your name.."
-      />
-
-      <label for="lname">Last Name</label>
-      <input
-        type="text"
-        id="lname"
-        name="lastname"
-        placeholder="Your last name.."
-      />
-
-      <label for="country">Country</label>
-      <select id="country" name="country">
-        <option value="australia">Australia</option>
-        <option value="canada">Canada</option>
-        <option value="usa">USA</option>
-      </select>
-
-      <label for="subject">Subject</label>
-      <textarea
-        id="subject"
-        name="subject"
-        placeholder="Write something.."
-        style="height: 200px"
-      ></textarea>
-
-      <input type="submit" value="Submit" />
-    </form>
+  <div class="container"></div>
+  <div class="container mt-3">
+    <div class="card p-3 text-center">
+      <div class="d-flex flex-row justify-content-center mb-3"></div>
+      <h4>Support Ticket</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="inputs">
+            <label>Name</label>
+            <input
+              v-model="ime"
+              class="form-control"
+              type="text"
+              placeholder="Name"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputs">
+            <label>Last name</label>
+            <input
+              class="form-control"
+              v-model="prezime"
+              type="text"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="inputs">
+            <label>Email</label>
+            <input
+              class="form-control"
+              v-model="email"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="about-inputs">
+            <label>About</label>
+            <textarea
+              class="form-control"
+              v-model="temaopis"
+              type="text"
+              placeholder="About your support ticket"
+            >
+            </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="odmakni">
+        <button
+          class="px-5 me-4 btn btn-sm btn-primary"
+          @click="postNewSupportTicket()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
+<script>
+import { support } from "/service";
+export default {
+  name: "Add",
+  data() {
+    return {
+      ime: "",
+      prezime: "",
+      temaopis: "",
+      email: "",
+    };
+  },
+  methods: {
+    async postNewSupportTicket() {
+      let noviUnos = {
+        ime: this.ime,
+        prezime: this.prezime,
+        temaopis: this.temaopis,
+        email: this.email,
+      };
+      let newOne = await support.addNewsuppTicket(noviUnos);
+      console.log("dodano", newOne.data);
+      (this.ime = ""),
+        (this.prezime = ""),
+        (this.temaopis = ""),
+        (this.email = "");
+    },
+  },
+};
+</script>
+
+
 <style scoped>
-/* Style inputs with type="text", select elements and textareas */
-input[type="text"],
-select,
-textarea {
-  width: 100%; /* Full width */
-  padding: 12px; /* Some padding */
-  border: 1px solid #ccc; /* Gray border */
-  border-radius: 4px; /* Rounded borders */
-  box-sizing: border-box; /* Make sure that padding and width stays in place */
-  margin-top: 6px; /* Add a top margin */
-  margin-bottom: 16px; /* Bottom margin */
-  resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
-}
-
-/* Style the submit button with a specific background color etc */
-input[type="submit"] {
-  background-color: #04aa6d;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* When moving the mouse over the submit button, add a darker green color */
-input[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-/* Add a background color and some padding around the form */
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  margin-top: 50px;
-}
 </style>
