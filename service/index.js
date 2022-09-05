@@ -38,6 +38,7 @@ let Proizvodi = {
         let data = response.data
         data = data.map((doc) => {
             return {
+                imgURL: doc.imageurl,
                 id: doc._id,
                 Proizvod: doc.Proizvod,
                 ProizvodModel: doc.ProizvodModel,
@@ -50,12 +51,16 @@ let Proizvodi = {
         return data
     },
 
+
+
 }
+
 
 /* KORISNICI */
 
 
 let Auth = {
+
     async login(username, password) {
 
         try {
@@ -109,6 +114,7 @@ let Auth = {
     getToken() {
         let user = Auth.getUser();
         if (user && user.token) {
+
             return user.token;
         }
     },
@@ -135,7 +141,9 @@ let ShopingCart = {
         let data = response.data
         data = data.map((doc) => {
             return {
-                id: doc.id,
+
+                Auth: doc.Auth,
+                id: doc._id,
                 Proizvod: doc.Proizvod,
                 ProizvodModel: doc.ProizvodModel,
                 Cijena: doc.Cijena,
@@ -149,17 +157,35 @@ let ShopingCart = {
     add(Cart) {
         return Service.post("/ShopingCart", Cart);
     },
-    async deleteitems(Auth) {
-        await Service.delete(`/ShopingCart/${Auth}`)
+    async deleteitems(id) {
+        await Service.delete(`/ShopingCart/${id}`)
     },
 
 
 }
 
+/* SUPPORT */
+let support = {
+    addNewsuppTicket(Supp) {
+        return Service.post("/Support", Supp)
+    },
+}
 
-export { Proizvodi, Auth, ShopingCart }
+
+export { Proizvodi, Auth, ShopingCart, support }
 
 
 
 
 
+
+
+/* username,
+        password,
+        firstname,
+        country,
+        city,
+        state,
+        about,
+        adress,
+        lastname */
