@@ -53,17 +53,7 @@
                 required
               />
             </div>
-            <div class="form group">
-              <label for="exampleInputCPassword">Confirm password</label>
-              <input
-                type="password"
-                class="form-control"
-                v-model="cpassword"
-                id="exampleInputCPassword"
-                placeholder="Confirm your password"
-                required
-              />
-            </div>
+
             <div class="form group">
               <label for="exampleInputCountry">Country</label>
               <input
@@ -107,19 +97,7 @@
                   required
                 />
               </div>
-              <div class="form group">
-                <label for="exampleInputDate">Date of birth</label>
-                <input
-                  type="Date"
-                  class="form-control"
-                  min="1900-01-01"
-                  max="2010-01-01"
-                  v-model="dateofb"
-                  id="exampleInputDate"
-                  placeholder="Date Of birth"
-                  required
-                />
-              </div>
+
               <div class="form group">
                 <label for="exampleInputabout_">About</label>
                 <input
@@ -155,7 +133,7 @@ export default {
       lastname: "",
       username: "",
       password: "",
-      cpassword: "",
+
       country: "",
       city: "",
       state: "",
@@ -185,7 +163,7 @@ export default {
         this.adress,
         this.lastname
       );
-      this.$router.replace("/Login");
+      this.$router.replace("/Store");
     },
   },
 };
